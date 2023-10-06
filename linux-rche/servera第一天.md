@@ -123,7 +123,7 @@ crontab -e -u natasha
 ```
 
 ##### 协作目录
-更改目录的群组,使得只有某组的用户才能访问
+更改目录所属的群组,使得只有某组的用户才能访问
 ```shell
 mkdir /home/managers
 chgrp 群组 目录
@@ -132,4 +132,70 @@ chgrp 群组 目录
 [root@node1 html]# ll -d /home/managers/
 drwxr-xr-x. 2 root sysmgrs 6 Oct  6 12:11 /home/managers/
 ```
+为某文件设置群组权限,比如读写,访问
+```shell
+chmod g=rwx 文件夹
+```
+为其他用户,就是不属于规定群组和拥有者的其他用户都无法
+执行,读取,写入该文件
+```shell
+chmod o=--- /home/managers
+```
+为该文件设置只有其拥有者和群组才能删除
+因为这是共享目录,最后不要删别人的
+```shell
+chmod g+s /home/managers
+```
+上面三行可以用一行代替
+```shell
+chmod 2770 /home/managers
+```
 
+
+##### 配置ntp
+```shell
+vim /etc/chrony.conf
+
+把gateway那行修改掉
+server materials.example.com iburst
+
+systemctl restart chronyd.service
+systemctl enable chronyd.service
+
+chronyc sources
+##验证
+```
+
+
+配置autofs
+```shell
+yum install -y autofs
+mkdir -p /rhome/remoteuser1
+vim /etc/auto.master
+```
+![[Pasted image 20231006214424.png]]
+```shell
+vim /etc/auto.nfs
+
+在配置文件中写上远程路径和本地挂载路径
+remoteuser1 -sync,rw,fstype=nfs materials.example.com:/rhome/remoteuser1
+用户
+```
+
+##### 配置fstab
+```shell
+cp /etc/fstab  /var/tmp/fstab
+setfacl -m u:natasha:rw /var/tmp/fstab
+setfacl -m u:harry:--- /var/tmp/fstab
+getfacl /var/tmp/fstab
+
+```
+用于设置文件或目录的访问控制列表（Access Control List，ACL）。
+
+具体而言，命令中的选项和参数含义如下：
+
+- `-m`：指定操作为修改（modify）。
+- `u:natasha`：表示要设置ACL的用户，这里是 `natasha` 用户。
+- `rw`：表示为 `natasha` 用户设置读写权限。
+
+通过执行该命令，`/var/tmp/fstab` 文件的ACL将被修改，使得 `natasha` 用户具有读写权限。

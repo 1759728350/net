@@ -41,8 +41,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,8 +168,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f3db89deb6943058",
+  "active": "fa7fcfdaa4640029",
   "lastOpenFiles": [
+    "Pasted image 20231006214424.png",
+    "Pasted image 20231006214403.png",
     "Pasted image 20231006004643.png",
     "linux-rche/命令.md",
     "linux-rche/servera第一天.md",
