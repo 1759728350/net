@@ -1,0 +1,181 @@
+{
+  "main": {
+    "id": "985eb63bd9a5baba",
+    "type": "split",
+    "children": [
+      {
+        "id": "a6c41ed6bc6ef9e2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fa7fcfdaa4640029",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux-rche/servera第一天.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f3db89deb6943058",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.4.14"
+              }
+            }
+          },
+          {
+            "id": "81b4ef42aa1dbc70",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux-rche/命令.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9fb38ed3348c2f82",
+    "type": "split",
+    "children": [
+      {
+        "id": "fcf29bafa09ad797",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "42f40d7b928dabec",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "98e87aff899b1412",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ea02918dbab05b95",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "7946e38de4dc5c22",
+    "type": "split",
+    "children": [
+      {
+        "id": "80658c2a6f35ecdb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "24b31f20312ce824",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "linux-rche/servera第一天.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "383faf0d6560428e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "linux-rche/servera第一天.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "557e94c8f07f338b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "4d04ab4e8a568fc9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "linux-rche/servera第一天.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "fa7fcfdaa4640029",
+  "lastOpenFiles": [
+    "Pasted image 20231006214424.png",
+    "Pasted image 20231006214403.png",
+    "Pasted image 20231006004643.png",
+    "linux-rche/命令.md",
+    "linux-rche/servera第一天.md",
+    "Pasted image 20231006002349.png",
+    "Pasted image 20231005221011.png"
+  ]
+}
