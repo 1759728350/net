@@ -166,19 +166,25 @@ chronyc sources
 ##验证
 ```
 
+##### 配置autofs
+```text
+按照以下要求自动挂载远程用户的家目录，
+要求如下： content.example.com ( 172.16.1.250 )NFS 导出 /rhome 到您的 系统。 
+此文件系统包含为用户 user1 预配置的主目录 user1 的主目录是: workstation.lab.example.com:/rhome/user1
+user1 的主目录应自动挂载到本地 /rhome 下的 /rhome/user1
+```
 
-配置autofs
 ```shell
-yum install -y autofs
-mkdir -p /rhome/remoteuser1
-vim /etc/auto.master
+yum install -y autofs  ##下载autofs,这是一个自动挂载文件的工具
+mkdir -p /rhome/user1  ## 在本机上创建对应文件夹
+vim /etc/auto.master  ##
 ```
 ![[Pasted image 20231006214424.png]]
 ```shell
 vim /etc/auto.nfs
 
 在配置文件中写上远程路径和本地挂载路径
-remoteuser1 -sync,rw,fstype=nfs materials.example.com:/rhome/remoteuser1
+remoteuser1 -sync,rw,fstype=nfs materials.example.com:/rhome/user1
 用户
 ```
 
