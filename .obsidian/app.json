@@ -1,4 +1,5 @@
 {
   "newFileLocation": "folder",
-  "newFileFolderPath": "/img"
+  "newFileFolderPath": "/img",
+  "strictLineBreaks": true
 }
