@@ -42,11 +42,15 @@ docker ps -a
 
 主要还是改一个配置文件就行,如果已经将容器内的数据卷和本地建立,那就改本地的对应目录就行
 ```shell
-docker run -d -p 3306:3306 --privileged=true --name hedley_mysql mysql
+docker run -d -p 3306:3306 --privileged=true --name hedley_mysql 
 -v /hedley/mysql/log:/var/log/mysql
 -v /hedley/mysql/data:/var/lib/mysql
 -v /hedley/mysql/conf:/etc/mysql/conf.d
 -e MYSQL_ROOT_PASSWORD=root
+mysql
+```
+```shell
+docker run -d -p 3306:3306 --privileged=true --name hedley_mysql  -v /hedley/mysql/log:/var/log/mysql -v /hedley/mysql/data:/var/lib/mysql -v /hedley/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root mysql
 ```
 ##### 打开mysql的客户端
 ```shell
@@ -116,3 +120,4 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 
 
+docker run -d -p 3306:3306 --privileged=true --name hedley_mysql  -v /hedley/mysql/log:/var/log/mysql -v /hedley/mysql/data:/var/lib/mysql -v /hedley/mysql/conf:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root mysql
