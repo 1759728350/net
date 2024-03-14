@@ -329,6 +329,17 @@ yum update
 yum install -y vim
 ```
 
+##### 软件打包压缩
+```shell
+##将多个文件或目录打包成一个文件，但不进行压缩。因此，使用`tar`打包后的文件大小比较大，但打包速度快。通常需要结合其他压缩工具（如`gzip`
+tar -czvf archive.tar.gz /path/to/directory  #z表示使用gzip进行压缩
+tar -xzvf  ##表示将压缩文件进行解压
+
+zip
+upzip  ##解压
+
+gzip   ##对单个文件进行压缩
+```
 # linux部署
 ##### 开启防火墙对应端口
 ```shell
