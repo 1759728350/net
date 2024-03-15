@@ -84,12 +84,6 @@ unset a                       //报错
 
 
 
-##### 变量拼接字符串
-
-```shell
-name="Alice"
-greeting="Hello, ${name}!"
-```
 
 ##### 单引号和飘号双引号
 
@@ -213,12 +207,12 @@ $@是1 2
 $#参数个数2
 ```
 
-#### 运算符号
+### 运算符号
 
 
 ![image-20231017082944322](D:\elecbook\OSandLinux\shell\${imgs}\image-20231017082944322.png)
 
-##### 双括号
+#### 双括号
 >双括号(())表示里面存在运算表达式
 ```shell
 read -p "n1:" n1
@@ -261,7 +255,7 @@ done
 echo "1到100的和为：$total"
 ```
 
-##### 方括号
+#### 方括号
 参考if下面的条件判断式
 
 >等效与双括号(()),做逻辑比较运算和算术运算
@@ -275,7 +269,7 @@ then
 fi
 ```
 
-##### 花括号
+#### 花括号
 >用来做类似于python中的range()
 
 ```bash
@@ -283,7 +277,15 @@ fi
     do
         echo "Number: $i"
     done
- ```
+```
+##### 花括号用于变量拼接字符串
+
+```shell
+name="Alice"
+greeting="Hello,     ${name}hedley!"   
+不用花括号包着,name就会连着hello,的同时,和后面的hedley连在一起了
+```
+
 ### 控制语句
 
 #### if

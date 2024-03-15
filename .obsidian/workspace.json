@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "技术栈.md",
+                "file": "shell/三剑客.md",
                 "mode": "source",
                 "source": false
               }
@@ -49,14 +49,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-rche/docker.md",
+                "file": "linux-rche/linux命令.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -122,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "shell/shell脚本.md",
+                "file": "shell/三剑客.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -139,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "shell/shell脚本.md",
+                "file": "shell/三剑客.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "shell/shell脚本.md"
+                "file": "shell/三剑客.md"
               }
             }
           }
@@ -220,23 +220,23 @@
       }
     ]
   },
-  "active": "5921ab576bd2c882",
+  "active": "0b90c8949c433307",
   "lastOpenFiles": [
-    "技术栈.md",
     "shell/shell脚本.md",
+    "shell/三剑客.md",
     "shell/shell面试题.md",
+    "linux-rche/linux命令.md",
+    "linux-rche/docker.md",
+    "技术栈.md",
     "复杂问题栈.md",
     "linux-rche/linux面试题.md",
     "linux-rche/servera第一天.md",
-    "linux-rche/linux命令.md",
-    "shell/三剑客.md",
     "网络基础/网络分层.md",
     "概览/七层模型.md",
     "网络基础/七层模型.md",
     "网络基础/img/Pasted image 20230528161254.png",
     "网络基础/img",
     "linux-rche/mysql.md",
-    "linux-rche/docker.md",
     "未命名",
     "git/img/Pasted image 20230308132019.png",
     "git/img/Pasted image 20230308132008.png",

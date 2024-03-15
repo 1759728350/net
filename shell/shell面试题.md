@@ -10,7 +10,6 @@ echo 'move done'
 ```
 
 ##### 脚本计算1到100
-#!/bin/bash sum=0 for ((i=1; i<=100; i++)) do sum=$((sum + i)) done echo "1到100的和是：$sum"
 ```shell
 #!bin/bash
 sum = 0
@@ -18,5 +17,6 @@ for((i=1;i<=100;i++))
 do
 sum=$((sum+i))
 done
-echo "结果为:${}"
+echo "结果为:${sum}"
 ```
+
