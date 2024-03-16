@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "linux-rche/linux面试题.md",
+                "file": "linux-rche/linux命令.md",
                 "mode": "source",
                 "source": false
               }
@@ -121,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "技术栈.md",
+                "file": "linux-rche/linux命令.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -138,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "技术栈.md",
+                "file": "linux-rche/linux命令.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "技术栈.md"
+                "file": "linux-rche/linux命令.md"
               }
             }
           }
@@ -219,12 +219,12 @@
       }
     ]
   },
-  "active": "e56873acab296c3b",
+  "active": "81b4ef42aa1dbc70",
   "lastOpenFiles": [
     "linux-rche/linux面试题.md",
+    "技术栈.md",
     "shell/shell脚本.md",
     "linux-rche/linux命令.md",
-    "技术栈.md",
     "linux-rche/docker.md",
     "shell/shell面试题.md",
     "shell/三剑客.md",
