@@ -136,7 +136,6 @@ echo $?  ##输出上一命令是否执行成功  1-255执行失败  0表示执�
 ##脚本中常用来判断上一步骤是否执行成功
 
 ```
-
 ##### 个人环境变量配置文件
 
 ```shell
@@ -171,8 +170,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
 export | grep PATH   ##效果一样
 ```
 
-
-
 ```shell
 在/etc/profile下 export TOMCAT_HOME=/opt/tomcat
 
@@ -180,6 +177,55 @@ source /etc/profile   刷新数据重新配置
 
 然后输出echo $TOMCAT_HOME
 ```
+
+
+##### 在开机启动脚本中设置环境变量和预执行程序
+
+对于数据库服务（如MySQL），在系统启动时设置环境变量可以确保数据库服务能够以正确的参数和配置启动。以下是一个示例，详细说明如何在系统启动时为MySQL设置环境变量：
+
+1. **编辑`/etc/rc.d/rc.local`文件**：
+
+```bash
+sudo nano /etc/rc.d/rc.local
+```
+
+2. **向`rc.local`文件添加设置环境变量的内容**：  
+    假设我们想在系统启动时设置MySQL的root用户密码、创建的数据库名称以及用户和密码。我们可以添加如下内容到`rc.local`文件中：
+
+```bash
+#!/bin/bash
+export MYSQL_ROOT_PASSWORD="your_root_password"
+export MYSQL_DATABASE="your_database_name"
+export MYSQL_USER="your_user"
+export MYSQL_PASSWORD="your_password"
+```
+
+请替换上面的`your_root_password`、`your_database_name`、`your_user`和`your_password`为实际需要设置的值。
+
+3. **保存并退出文件**：按下`Ctrl + X`，输入`Y`确认保存，然后按`Enter`键退出。
+    
+4. **赋予`rc.local`文件执行权限**：
+    
+
+```bash
+sudo chmod +x /etc/rc.d/rc.local
+```
+
+5. **重启系统**：
+
+```bash
+sudo reboot
+```
+
+你可以在MySQL启动脚本中通过`${变量名}`的方式引用这些环境变量。例如，在启动MySQL服务之前，可以这样设置MySQL的root密码、创建数据库和用户：
+
+```bash
+mysql -u root --password=${MYSQL_ROOT_PASSWORD} -e "CREATE DATABASE ${MYSQL_DATABASE};"
+mysql -u root --password=${MYSQL_ROOT_PASSWORD} -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mysql -u root --password=${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'localhost';"
+```
+
+请确保你在使用这些环境变量之前，已经加载了`/etc/rc.d/rc.local`文件或者重启了系统。通过这种方式，你可以在启动时设置的环境变量在系统启动后被正确应用，以及运行相应的服务或脚本。
 
 ### 脚本执行
 

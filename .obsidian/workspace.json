@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "shell/shell面试题.md",
+                "file": "linux-rche/linux面试题.md",
                 "mode": "source",
                 "source": false
               }
@@ -55,8 +55,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "shell/三剑客.md",
+                "file": "技术栈.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "shell/三剑客.md",
+                "file": "技术栈.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "shell/三剑客.md"
+                "file": "技术栈.md"
               }
             }
           }
@@ -215,21 +214,21 @@
         "y": 0,
         "width": 1024,
         "height": 752,
-        "maximize": false,
+        "maximize": true,
         "zoom": 0
       }
     ]
   },
-  "active": "0b90c8949c433307",
+  "active": "e56873acab296c3b",
   "lastOpenFiles": [
-    "shell/shell脚本.md",
-    "shell/三剑客.md",
-    "shell/shell面试题.md",
-    "linux-rche/linux命令.md",
-    "linux-rche/docker.md",
-    "技术栈.md",
-    "复杂问题栈.md",
     "linux-rche/linux面试题.md",
+    "shell/shell脚本.md",
+    "linux-rche/linux命令.md",
+    "技术栈.md",
+    "linux-rche/docker.md",
+    "shell/shell面试题.md",
+    "shell/三剑客.md",
+    "复杂问题栈.md",
     "linux-rche/servera第一天.md",
     "网络基础/网络分层.md",
     "概览/七层模型.md",

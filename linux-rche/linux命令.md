@@ -135,6 +135,7 @@ aaa*:以aaa为头的文件
 - `s` 表示套接字（socket）文件。
 - `p` 表示命名管道（named pipe）文件。
 
+# 文本编辑
 #### vim
 
 * 命令行模式
@@ -209,7 +210,7 @@ lrwxrwxrwx  1 root root           9 3月  23 2023 python2 -> python2.7
 ##whereis python2.7就能获取该文件的相关所有源代码,可执行文件,手册
 ```
 
-
+# 文件操作
 
 #### 复制文件
 
