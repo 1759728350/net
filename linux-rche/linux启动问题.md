@@ -9,13 +9,7 @@
 3. **内核（Kernel）**：启动后，加载并执行 Linux 内核。
     
 4. **Systemd**：在现代 Linux 发行版中，Systemd 会接管启动过程，根据 Unit 文件定义的内容来管理系统服务。
-    
-5. **rc.sysinit**：在传统 SysV 系统中，用于执行基本系统初始化任务的脚本。
-    
-6. **rc.local**：用于存放系统启动时需要执行的本地自定义脚本。
-    
-7. **SysV init 脚本**：`/etc/init.d/` 目录下的 SysV 初始化脚本，用于启动、停止和重启系统服务。
-    
+
 
 ### bootloader的配置文件grub
 在以下情况下，你可能需要更改 GRUB 的默认启动选项：
@@ -129,6 +123,8 @@ sudo systemctl restart nginx
 5. **WantedBy**：
     
     - 确保服务正确安装到指定的 target 中，可能需要根据实际情况进行调整。
+ 6. after:
+	 * 确保在对应程序启动后才执行该程序
 
 这些是在运维工作中可能需要经常调整的一些.service单元文件中的配置选项，确保这些配置项与服务的实际需求和运行环境保持一致，有助于确保服务的正常运行。
 
@@ -165,3 +161,82 @@ WantedBy=multi-user.target
 - `sudo systemctl restart mysql`：重启 MySQL 服务
 - `sudo systemctl status mysql`：查看 MySQL 服务状态
 - `sudo systemctl enable mysql`：设置 MySQL 服务开机自启动
+
+
+##### 为nginx编写service单元配置
+
+1. 创建一个新的 systemd 服务单元文件，比如 `nginx.service`，一般存放在 `/etc/systemd/system/` 目录下。
+    
+2. 使用编辑器打开该文件并添加以下内容：
+    
+
+```shell
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+ExecStartPre=/usr/sbin/nginx -t
+ExecStart=/usr/sbin/nginx
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+3. 保存并关闭文件。然后重新加载 systemd，使其检测到新的服务单元文件：
+
+```bash
+sudo systemctl daemon-reload
+```
+
+4. 启用 nginx 服务，并启动它：
+
+```bash
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+
+## 创建一个系统刚启动时自动执行的脚本
+要定义一个系统启动后自动执行的脚本，你可以使用 systemd 来创建一个服务单元文件。下面是一个简单的步骤指南：
+
+1. 创建一个新的服务脚本，比如 `myscript.sh`，并编写你想要在系统启动后执行的脚本内容。
+    
+2. 将这个脚本文件放在一个合适的位置，比如 `/usr/local/bin/myscript.sh`。
+    
+3. 创建一个 systemd 服务单元文件，比如 `myscript.service`，用来描述你的脚本服务。在终端执行以下命令创建并编辑该文件：
+    
+
+```shell
+sudo vi /etc/systemd/system/myscript.service
+```
+
+4. 在 `myscript.service` 文件中输入以下内容：
+
+```shell
+[Unit]
+Description=My Script
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/myscript.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+在上面的内容中，你需要将 `ExecStart` 指定为你的脚本文件的路径，`Description` 是对该服务的描述，`After` 表示该服务应该在哪些服务之后启动，`WantedBy` 表示该服务应该在哪个 target 下启动。
+
+5. 保存文件并退出编辑器。
+    
+6. 使用以下命令启用该服务并立即启动：
+    
+
+```
+sudo systemctl enable myscript.service
+sudo systemctl start myscript.service
+```

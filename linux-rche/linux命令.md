@@ -434,32 +434,6 @@ tmpfs          tmpfs     1.1G     0  1.1G    0% /sys/fs/cgroup
 
 开启swap分区,将不怎么用到的内存页交换到磁盘上
 
-# linux状态监控
-
-#### 进程监控
-
-```shell
-ps -f ##查看主要运行的进程
-ps -ef  ##查看所有进程,一般用grep过滤
-
-[root@VM-4-10-centos ~]# bash 
-[root@VM-4-10-centos ~]# sh
-sh-4.2# ps -f
-UID        PID  PPID  C STIME TTY          TIME CMD
-root      9135 30099  0 09:05 pts/0    00:00:00 bash
-root      9457  9135  0 09:05 pts/0    00:00:00 sh
-root      9547  9457  0 09:05 pts/0    00:00:00 ps -f
-root     30099 30090  0 08:56 pts/0    00:00:00 -bash
-
-##先进入bash 再进入sh,就会看到这两个程序的进程
-```
-
-```shell
-pstree    ##查看进程树
-```
-
-
-
 
 # 云原生
 

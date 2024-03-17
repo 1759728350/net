@@ -1,5 +1,9 @@
 {
   "newFileLocation": "folder",
   "newFileFolderPath": "/img",
-  "strictLineBreaks": true
+  "strictLineBreaks": false,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "attachmentFolderPath": ".//img",
+  "readableLineLength": false
 }
