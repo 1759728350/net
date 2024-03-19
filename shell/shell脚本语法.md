@@ -629,11 +629,6 @@ diyih3
 
 
 
-### ansible
-
-ansible环境搭建,下载epel-
-
-
 
 ###   参数获取
 
