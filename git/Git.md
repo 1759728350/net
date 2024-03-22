@@ -1,176 +1,16 @@
 
-打开 [git 官网] https://git-scm.com/，下载 git 对应操作系统的版本。
 
 
-## Git 配置
+## 远程仓库
+### 克隆远程仓库
 
-安装成功后在开始菜单中会有 Git 项，菜单下有 3 个程序：任意文件夹下右键也可以看到对应的程序！
-
-
-**Git Bash：**Unix 与 Linux 风格的命令行，使用最多，推荐最多
-
-**Git CMD：**Windows 风格的命令行
-
-**Git GUI**：图形界面的 Git，不建议初学者使用，尽量先熟悉常用命令
-
-```shell
-#查看系统config
-git config --system --list
-　　
-#查看当前用户（global）配置
-git config --global  --list
-```
-
-
-
-所有的配置文件，其实都保存在本地！
-
-查看配置 git config -l
-
-![](https://mmbiz.qpic.cn/mmbiz_png/uJDAUKrGC7Ksu8UlITwMlbX3kMGtZ9p0GJANibs86DwYqoADdgZySGibmafR8p1XBq6ZG3t0J2wSg9icrIVVQo6dQ/640?wx_fmt=png)
-
-查看不同级别的配置文件：  
-
-```shell
-git config --global user.name  #查看名称
-git config --global user.email  #邮箱
-#这个用户名和密码仅仅只是区分 不同合作开发者的  和github以及gitee没关系
-```
-
-
-
-
-##### 设置用户名与邮箱（用户标识，必要）
-
-当你安装 Git 后首先要做的事情是设置你的用户名称和 e-mail 地址。这是非常重要的，因为每次 Git 提交都会使用该信息。它被永远的嵌入到了你的提交中：
-
-```shell
-$ git config --global user.name "hedley"
-$ git config --global user.email "1759728350@qq.com"
-```
-
-只需要做一次这个设置，如果你传递了 --global 选项，因为 Git 将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或 e-mail 地址，你可以在该项目中运行该命令而不要 --global 选项。总之 --global 为全局配置，不加为某个项目的特定配置。
-
-### 配置ssh公钥
-
-```shell
-ssh-keygen -t rsa -C "1759728350@qq.com"
-```
-
-然后用户主目录/.ssh/下有两个文件，id_rsa是私钥，id_rsa.pub是公钥
-
-![image-20220216225416013](Git.assets/image-20220216225416013.png)
-
-将上面的id_rsa.pub文件里的内容复制,放进github里的ssh中
-
-![image-20220216230258527](Git.assets/image-20220216230258527.png)
-
-![image-20220216230239984](Git.assets/image-20220216230239984.png)
-
-
-测试是否连接成功
-ssh -T git@github.com
-
-![image-20220216230721749](Git.assets/image-20220216230721749.png)
-
-
-
-**Git 相关的配置文件：**
-
-1）、Git\etc\gitconfig  ：Git 安装目录下的 gitconfig     --system 系统级
-
-2）、C:\Users\Administrator\ .gitconfig    只适用于当前登录用户的配置  --global 全局
-
-这里可以直接编辑配置文件，通过命令设置后会响应到这里。
-
-
-
-### 本地仓库搭建
-
-git init
-
-> init：初始化当前目录为仓库，初始化后会自动将当前仓库设置为master
-
-```shell
-#在要建立本地仓库的文件夹下右键  git bash here
-
-# 在当前目录新建一个Git代码库
-dougax@lyh MINGW64 /d/github/test
-$ git init
-Initialized empty Git repository in D:/github/test/.git/
-```
-
-创建本地仓库的条件是需要一个空目录，然后在空目录中初始化你的项目
-
-如我想创建一个名为“test”的空项目
-
-1.创建目录
-
-```bash
-mkdir test
-```
-
-2.进入目录
-
-```bash
-cd test
-```
-
-3.使用git init初始化当前仓库
-
-```bash
-git init
-```
-
-ls-ah查看隐藏文件, 查看被设置为仓库的目录所生成的 .git 隐藏文件
-
-
-
-创建本地仓库的方法有两种：一种是创建全新的仓库，另一种是克隆远程仓库。
-1、创建全新的仓库，需要用 GIT 管理的项目的根目录执行：
-2、执行后可以看到，仅仅在项目目录多出了一个. git 目录，关于版本等的所有信息都在这个目录里面。
-
-
-### 忽略文件
-
-```
-#为注释
-*.txt        #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！
-!lib.txt     #但lib.txt除外
-/temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp
-build/       #忽略build/目录下的所有文件
-doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
-```
-
-有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等
-
-在主目录下建立 ".gitignore" 文件，此文件有如下规则：
-
-1.  忽略文件中的空行或以井号（#）开始的行将会被忽略。
-
-2.  可以使用 Linux 通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,...}）代表可选的字符串等。
-
-3.  如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。
-
-4.  如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。
-
-5.  如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。使用码云
-
-
-## 克隆远程仓库
-
-
-```bash
-git remote add url   #先remote连接
-```
-
-1、另一种方式是克隆远程目录，由于是将远程服务器上的仓库完全镜像一份至本地！
+克隆远程目录，由于是将远程服务器上的仓库完全镜像一份至本地！
 
 ```shell
 #先 创建一个目录 ,然后在该目录下打开终端,直接拉取,
 #不用init初始化仓库,这个clone会自动生成一个仓库
 
-$ git clone -o 远程主机别名 [url]  # https://github.com/lTbgykio/Books-Free-Books.git
+$ git clone -o 给远程仓库起的名字 url  # https://github.com/lTbgykio/Books-Free-Books.git
 ```
 
 上面远程主机别名起叫elecbook
@@ -242,7 +82,9 @@ $ git branch -v
 dougax@lyh MINGW64 /d/github/test/jiayou2021 (main)
 $ git push origin_1 main
 ```
-## 文件的四种状态
+
+## 工作区
+### 文件的四种状态
 
 
 ```shell
@@ -314,29 +156,6 @@ git rm --cached \<file> 只表示将暂存区的file文件删除。
 
 
 ## GIT 分支
-```shell
-# 列出所有本地分支
-git branch
-
-# 列出所有远程分支
-git branch -r
-
-# 新建一个分支，但依然停留在当前分支
-git branch [branch-name]
-
-# 新建一个分支，并切换到该分支
-git checkout -b [branch]
-
-# 合并指定分支到当前分支
-$ git merge [branch]
-
-# 删除分支
-$ git branch -d [branch-name]
-
-# 删除远程分支
-$ git push origin --delete [branch-name]
-$ git branch -dr [remote/branch]
-```
 
 分支在 GIT 中相对较难，分支就是科幻电影里面的平行宇宙，如果两个平行宇宙互不干扰，那对现在的你也没啥影响。不过，在某个时间点，两个平行宇宙合并了，我们就需要处理一些问题了！
 
@@ -347,10 +166,6 @@ $ git branch -dr [remote/branch]
 git 分支中常用指令：
 
 ```shell
-# 列出所有本地分支
-git branch -v
-# 列出所有远程分支
-git branch -r
 # 新建一个分支，但依然停留在当前分支
 git branch [branch-name]
 # 新建一个分支，并切换到该分支
@@ -366,20 +181,16 @@ $ git push origin --delete [branch-name]
 $ git branch -dr [remote/branch]
 ```
 
-创建一个分支
+##### 创建一个分支
 
 ```shell
 $ git branch -v
 * master b7779e5 the third try
 
-dougax@lyh MINGW64 /d/github/test (master)
 $ git branch fix_shit
 
-dougax@lyh MINGW64 /d/github/test (master)
-$ git checkout fix_shit
+$ git checkout fix_shit           ##切换分支
 Switched to branch 'fix_shit'
-
-dougax@lyh MINGW64 /d/github/test (fix_shit)
 ```
 
 IDEA 中操作  
@@ -389,8 +200,15 @@ IDEA 中操作
 <font color=#FFCCCC style=" font-weight:bold;">如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！</font>
 
 master 主分支应该非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的 dev 分支上工作，工作完后，比如上要发布，或者说 dev 分支代码稳定后可以合并到主分支 master 上来。
+##### 查看分支
+```shell
+# 列出所有本地分支
+git branch -v
+# 列出所有远程分支
+git branch -r
+```
 
-### 分支切换和合并
+##### 分支切换和合并
 分支xj2
 ![](img/Pasted%20image%2020221201174832.png)
 
@@ -469,7 +287,6 @@ origin  git@github.com:1759728350/jiayou2021.git (fetch)
 origin  git@github.com:1759728350/jiayou2021.git (push)
 ```
 
-<<<<<<< HEAD
 
 
 ## 删除文件操作
