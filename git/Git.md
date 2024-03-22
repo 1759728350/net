@@ -1,10 +1,6 @@
 
 打开 [git 官网] https://git-scm.com/，下载 git 对应操作系统的版本。
 
-所有东西下载慢的话就可以去找镜像！
-
-官网下载太慢，我们可以使用淘宝镜像下载：http://npm.taobao.org/mirrors/git-for-windows/
-
 
 ## Git 配置
 
@@ -134,17 +130,6 @@ ls-ah查看隐藏文件, 查看被设置为仓库的目录所生成的 .git 隐�
 1、创建全新的仓库，需要用 GIT 管理的项目的根目录执行：
 2、执行后可以看到，仅仅在项目目录多出了一个. git 目录，关于版本等的所有信息都在这个目录里面。
 
-### 为啥每次提交都需要输密码?
-因为你git remote add 的是https的协议url
-只要改成ssh的url就不需要验证了
-![](img/Pasted%20image%2020221126190211.png)
-```shell
-//先删除之前关联的远程仓库名,以防之后再add时name重复
-git remote rm regression 
-//重新关联
-git remote add regression git@github.com:1759728350/breathe.git
-//之后正常提交就行了
-```
 
 ### 忽略文件
 
@@ -171,9 +156,7 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 5.  如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。使用码云
 
-##### 环境变量配置
-![](img/Pasted%20image%2020230308132008.png)
-![](img/Pasted%20image%2020230308132019.png)
+
 ## 克隆远程仓库
 
 
@@ -551,74 +534,13 @@ git pull = git fetch + git merge
 
 本地修改代码后，每次从本地仓库push到远程仓库之前都要先进行git pull操作，**保证push到远程仓库时没有版本冲突**。也就是说,在这个仓库只有我一个人在提交时,没有第二个人commit,即使不pull也是可以随意push的,因为版本并没有冲突
 
-## 报错解决
-
-![image-20220218172506512](Git.assets/image-20220218172506512.png)
-
-```shell
-$ git push note master
-To github.com:1759728350/note.git
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'github.com:1759728350/note.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-
-dougax@lyh MINGW64 /d/elecbook (master)
-$ git pull --rebase note master
-From github.com:1759728350/note
-
- * branch            master     -> FETCH_HEAD
-   Successfully rebased and updated refs/heads/master.
-```
 
 
 
-## 忽略文件
-
-```
-#为注释
-*.txt        #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！
-!lib.txt     #但lib.txt除外
-/temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp
-build/       #忽略build/目录下的所有文件
-doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
-```
-
-有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等
-
-在主目录下建立 ".gitignore" 文件，此文件有如下规则：
-
-1.  忽略文件中的空行或以井号（#）开始的行将会被忽略。
-
-2.  可以使用 Linux 通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,...}）代表可选的字符串等。
-
-3.  如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。
-
-4.  如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。
-
-5.  如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。使用码云
 
 
-## 为啥每次提交都需要输密码?
-因为你git remote add 的是https的协议url
-只要改成ssh的url就不需要验证了
-![](img/Pasted%20image%2020221126190211.png)
-```shell
-//先删除之前关联的远程仓库名,以防之后再add时name重复
-git remote rm regression 
-//重新关联
-git remote add regression git@github.com:1759728350/breathe.git
-//之后正常提交就行了
-```
-把https切换成git的url就行了
-git@github.com:1759728350/breathe.git
-
-## git 为什么要先commit，然后pull，最后再push？
-=======
 ##### git 为什么要先commit，然后pull，最后再push？
->>>>>>> 7e1d85ed1ef3780b3abc7ed44fed5e5733013273
+
 
 <font color=#66CC99 style=" font-weight:bold;">一般工作先pull初始化一下本地仓库,每次提交在push之前pull一下检查冲突多一个合并过程
 否则你啥都不知道的情况下就把人家代码给覆盖掉了</font>
@@ -655,55 +577,10 @@ git@github.com:1759728350/breathe.git
 修改：看了评论发现上段语句有些不严谨。强调如下：上面B修改的时候不是同一块代码，才可以成功更新（pull）下来到本地仓库，但是此时IDEA里面看不到最新内容，然后不知情的改了A写过的代码，再commit和push，可以成功覆盖git上面的A的修改。        此段主要强调的是：为了避免    不知情的修改了别人代码   还不报错的成功push上去，所以需要先commit再pull，目的就是为了能在IDEA上看的见A修改的代码
 
 
-## pull拉取
-#### 拉取失败解决_强制覆盖
-##### 强制拉取远程仓库并覆盖本地仓库代码
-
-```shell
-git fetch --all 
-git reset --hard master 
-git pull #可省略
-```
-
-##### 拉取并合并
-自己已经写了一部分,但合并时,在你写的这个工程中有别人改了并提交
-你可以将自己写的那部分暂存
-然后pull再合并
-```shell
-git stash       //将未提交的内容暂存到栈中
-git pull        //拉取
-git stash pop   //从暂存区取出储藏 （更新后的代码和自己写的代码合并，可能存在冲突，需要手动解决冲突）
-//然后再提交
-```
-
-##### 提交然后pull直接覆盖解决冲突
-本地工作区修改了内容然后pull了报错
-```shell
-git add -u //全写为git add --update，仅将被修改的文件提交到暂存区
-git commit -m "" 
-git pull
-```
-#### 拉取防止覆盖本地_stash暂存
-git pull之前先暂存防止之前写的本地内容被覆盖
-```bash
-git stash
-git pull
-git stash pop
-//然后add commit
-```
-
-
-## 参考
-[学习笔记](https://gitee.com/hongjilin/hongs-study-notes/tree/master/%E7%BC%96%E7%A8%8B_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0#1git-stash)
-[车子的git十篇命令解析](https://blog.csdn.net/longintchar/category_7883282.html)
-
-
 
 
 ## 暂存区
-##### add.不能乱用
-add是将文件加入到缓存区且让git能追踪到
-add . 将所有文件到加入了,有的文件你还没修改后就不要急着推上去
+
 
 ##### 删除暂存区文件
 git rm --cached \<file> 只表示将暂存区的file文件删除。
@@ -793,6 +670,45 @@ _文件从没有被add过_
 ![[Pasted image 20220816203646.png]]
 
 
+
+## 本地仓库
+#### git fetch
+`git fetch`命令会将远程仓库的最新提交历史和分支信息拉取到本地仓库，但不会自动修改你当前所在的本地分支。换句话说，执行`git fetch`后，本地仓库中会更新远程仓库的最新状态，但不会直接影响你当前所在的本地分支。
+
+通过执行`git fetch`，你可以获取远程仓库的最新变动，然后可以基于这些变动进行进一步操作，比如查看远程分支的变化，合并远程分支到本地分支等。
+
+### pull拉取
+#### 拉取失败解决_强制覆盖
+##### 强制拉取远程仓库并覆盖本地仓库代码
+
+```shell
+git fetch --all 
+git reset --hard master 
+git pull #可省略
+```
+
+##### 拉取并合并
+自己已经写了一部分,但合并时,在你写的这个工程中有别人改了并提交
+你可以将自己写的那部分暂存
+然后pull再合并
+```shell
+git stash       //将未提交的内容放到暂存区的栈中
+git pull        //拉取并合并到本地分支
+git stash pop   //从暂存区取出（拉取本更新的分支和暂存区中取出的自己写的代码合并，可能存在冲突，需要手动解决冲突）
+//然后add commit
+```
+
+##### 提交然后pull直接覆盖解决冲突
+本地工作区修改了内容然后pull了报错
+```shell
+git add -u //全写为git add --update，仅将被修改的文件提交到暂存区
+git commit -m "" 
+git pull
+```
+
+
+
+
 ## 版本库
 ##### 查看某个文件的提交历史
  ```shell
@@ -854,11 +770,4 @@ git revert commitId
 日志也会一并删除
 
 
-## 挖坑
-当需要用到这些命令时再去学吧
-git 查看暂存区的使用场景挖坑
-git diff 命令
-git rebace
-查看及删除git远程库不需要的文件
-思考
-![](img/Pasted%20image%2020221201185509.png)
+

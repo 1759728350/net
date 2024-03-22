@@ -139,7 +139,7 @@ CMD ["catalina.sh", "run"]
 
 
 
-### docker镜像
+### 镜像
 ##### 如何获取镜像
 
 根据dockerfile生成镜像,此时使用docker build
@@ -202,7 +202,9 @@ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
         ```bash
         docker commit mycontainer mynewimage:latest
         ```
-### docker进入容器
+
+### 容器
+#### docker进入容器
 ```shell
 docker exec -it 容器名orid  /bin/bash
 ```
@@ -319,10 +321,12 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 
 
-## docker网络
+### docker网络
 1. **Bridge（桥接）**：默认的网络模式，容器通过在同一主机上创建虚拟网桥连接到宿主机。容器可以使用IP地址访问其他容器或外部网络。
     
 2. **Host（主机）**：容器与宿主机共享网络命名空间，容器使用宿主机的网络栈，可以直接访问宿主机上的端口。
+3. container模式: 和某个容器共享IP和端口资源
+4. none模式: 网络都没有配置
 
 
 #### bridge桥接
@@ -341,3 +345,12 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 #### host连接
 和主机共享IP,共享端口,所以容易与主机端口冲突
 甚至连在容器内ifconfig查看网络配置都是和主机一模一样的
+
+
+### docker compose
+就是将原有的多个镜像的dockerfiel写到一个docker-compose.yml里,然后指定谁依赖谁,启动的先后顺序
+
+### 容器监控工具
+cAdvisor收集服务浏览
+influxdb存储服务
+rafana展现服务

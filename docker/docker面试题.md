@@ -18,3 +18,20 @@
 COPY指令和ADD指令都可以将主机上的资源复制或加入到容器镜像中
 如果是本地的压缩包ADD进去会被解压
 
+##### docker网络类型有哪些？
+host bridge none container
+
+##### 命令相关：导入导出镜像，进入容器，设置重启容器策略，查看镜像环境变量，查看容器占用资源
+- 导入镜像 docker load -i xx.tar
+- 导出镜像docker save -o xx.tar image_name
+- 进入容器docker exec -it 容器命令 /bin/bash
+- 设置容器重启策略启动时 --restart选项
+- 查看容器环境变量 docker exec {containerID} env
+- 查看容器资源占用docker stats test2
+
+##### 构建镜像有哪些方式？
+
+- dockerfile
+- 容器提交为镜像
+
+
