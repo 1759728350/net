@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "aa3f0b3e53a0d12e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "git/git问题解决.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "git/git命令.md",
+                "file": "git/git问题解决.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "git/git命令.md",
+                "file": "git/git问题解决.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "git/git命令.md"
+                "file": "git/git问题解决.md"
               }
             }
           }
@@ -171,12 +183,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8767c760821247bf",
+  "active": "aa3f0b3e53a0d12e",
   "lastOpenFiles": [
-    "git/git命令2.md",
     "git/git命令.md",
-    "git/Git.md",
     "git/git问题解决.md",
+    "git/Git.md",
+    "bb.txt",
+    "新建 文本文档.txt",
+    "git/git命令2.md",
+    "aa.txt",
     "技术暂存栈.md",
     "casual/计算机网络-数据包网络运输.md",
     "git/Git面试题.md",
@@ -205,7 +220,6 @@
     "看路/经验.md",
     "linux-rche/linux启动问题.md",
     "shell/shell脚本语法.md",
-    "linux-rche/linux命令.md",
     "linux-rche/img/Pasted image 20240317160702.png",
     "linux-rche/img",
     "Pasted image 20240317160502.png",
@@ -215,9 +229,6 @@
     "网络基础/img",
     "git/img/Pasted image 20230308132019.png",
     "git/img/Pasted image 20230308132008.png",
-    "git/img",
-    "git/Git.assets",
-    "git",
-    "casual/计算机网络-数据包网络运输.assets/src=http%3A%2F%2Fimg2020.cnblogs.com%2Fblog%2F1323383%2F202007%2F1323383-20200710222723241-1850052375.jpg&refer=http%3A%2F%2Fimg2020.cnblogs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto"
+    "git/img"
   ]
 }

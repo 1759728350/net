@@ -155,6 +155,8 @@ git rebase <today_branch>
 
 <font color=#99CCFF style=" font-weight:bold;">仅改变了暂存区</font>
 ```shell
+git reset     ##清除所有暂存区文件
+
 git reset HEAD <file>
 ```
 撤销对暂存区（Index）中指定文件的更改，将该文件从暂存区中撤出,让这个文件回到未暂存状态。
@@ -196,23 +198,30 @@ git reset --hard <commit>
 
 
 
-#### git status
+#### git stash
 <font color=#99CCFF style=" font-weight:bold;">只改变工作区</font>
-`git stash`命令用于将当前工作目录中的修改（包括已跟踪和未跟踪的文件）暂存起来，使得工作目录变为干净状态，
+>`git stash`命令用于将当前工作目录中的修改（包括已跟踪和未跟踪的文件）暂存起来，使得工作目录变为干净状态，
 以便于切换到其他分支或进行其他操作。
 当你在工作时需要突然转移到其他任务，但又不想暂存和提交当前的修改时，可以使用`git stash`命令来保存工作目录。
+
+**为啥不用git add .存到暂存区呢?**
+因为你切换分支后工作区目录和暂存区都会跟着变化,所以修改的内容就丢了
+当你另外一个分支的任务完成,切回来之前的分支,之前干一半的修改全没了,所以用stash来存修改
+
+意外状况: pop时发现自己在原文件上改了一部分,所以pop出来会被覆盖,那怎么办呢?可以先add,然后pop再提交
+如果后来改的那部分不想要可以把暂存区里的给清除掉git reset
 
 具体使用方法如下：
 
 1. **暂存当前修改**：运行`git stash`命令将当前的修改暂存起来，包括已跟踪和未跟踪的文件。
    
-   ```
+   ```bash
    git stash
    ```
 
 2. **查看已暂存的列表**：运行`git stash list`命令可以查看当前已经暂存的列表，每个stash都有一个唯一的标识符（stash@{n}）。
 
-   ```
+   ```bash
    git stash list
    ```
 
