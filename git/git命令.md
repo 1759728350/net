@@ -268,32 +268,9 @@ git reset --hard <commit>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ##### 待
-
-
 
 1. `git status`：查看工作区和暂存区的状态。
 1. `git branch`：查看本地分支列表。
-2. 1. `git merge <branch_name>`：合并指定分支到当前分支。
 4. `git revert <commit_SHA>`：撤销指定提交的更改。
-5. `git stash`：暂存当前工作目录的修改，以便以后恢复。
+git pull
