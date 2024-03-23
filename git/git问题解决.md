@@ -209,3 +209,8 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 5.  如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。使用码云
 
+```shell
+先删缓存再add .
+git rm -r --cached .
+忽略文件才生效
+```

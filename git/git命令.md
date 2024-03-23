@@ -84,8 +84,10 @@ git checkout <commit_SHA> -- <file_path>
 
 如果只想恢复到最近一次提交的状态，可以使用以下命令：
 
-```
-git checkout HEAD -- <file_path>
+```shell
+git checkout HEAD -- <file_path>    ##从最新提交恢复文件状态,但刚才修改的内容会被永久删除
+##HEAD可以省略
+git checkout -- <file>
 ```
 
 切换到某一标签
@@ -264,13 +266,150 @@ git reset --hard <commit>
 `git stash`命令是Git中非常有用的功能，可以帮助你轻松地保存和恢复工作目录中的修改，提高工作效率。
 
 
+#### git status
+<font color=#99CCFF style=" font-weight:bold;">观测工作区目录和暂存区</font>
+`git status` 是 Git 中常用的命令之一，用于查看当前工作目录的状态和已暂存（staged）的变更。
+通过运行 `git status` 命令，你可以了解当前工作区、暂存区和本地仓库的文件状态，以及哪些文件被修改过、哪些文件被暂存、哪些文件还未被跟踪等信息。
+
+   `git status` 命令会显示类似以下的输出信息：
+   ```shell
+   On branch master
+   Your branch is up to date with 'origin/master'.
+
+   Changes not staged for commit:
+     (use "git add <file>..." to update what will be committed)
+     (use "git checkout -- <file>..." to discard changes in working directory)
+
+           modified:   file1.txt
+           modified:   file2.txt
+
+   Untracked files:
+     (use "git add <file>..." to include in what will be committed)
+
+           newfile.txt
+   ```
+   - `On branch master`：当前所在分支。
+   - `Changes not staged for commit`：未暂存的变更，即修改过但尚未添加到暂存区的文件。
+   - `Untracked files`：未跟踪的文件，即未被 Git 管理的新文件。
+   - 提供了相应的命令示例，如如何将文件暂存 (`git add`)、如何丢弃工作区中的更改 (`git checkout -- <file>`) 以及如何将未跟踪的文件加入暂存区等。
+
+4. **根据需要执行相应操作**：
+   - 如果有修改过的文件未暂存，可以使用 `git add <file>` 命令将其添加到暂存区。
+   - 如果想要丢弃对某个文件的修改，可以使用 `git checkout -- <file>` 命令。
+   - 如果有新文件需要加入版本控制，可以使用 `git add <file>` 将其加入暂存区。
+
+通过 `git status` 命令，你可以及时了解你的项目中文件的状态，帮助你更好地管理和提交文件变更。
+
+
+**使用场景**
+
+1. **查看工作目录的状态**：  
+    当你在开发过程中需要了解当前工作目录中文件的状态时，可以使用 `git status` 命令。它会显示哪些文件被修改过、哪些文件已经暂存、哪些文件还没有被 Git 跟踪等信息。
+    
+2. **确认提交前的更改**：  
+    在准备提交代码之前，通过运行 `git status` 可以确保你已经暂存了所有需要提交的更改，以及了解未暂存和未跟踪的文件，避免漏掉需要提交的内容。
+    
+3. **查找冲突**：  
+    当你在合并分支或者拉取远程更新后出现冲突时，可以使用 `git status` 查看显示的文件信息，并根据提示来解决冲突。
+    
+4. **撤销修改**：  
+    在 `git status` 的输出中，你可以看到哪些文件被修改过，如果你想要丢弃某个文件的修改，可以使用相应命令来恢复到最近一次提交的状态。
 
 
 
+#### git pull
+<font color=#99CCFF style=" font-weight:bold;">工作区目录,本地仓库都会变,暂存区会变?</font>
+##### 冲突状况
+1. **合并分支时的冲突**：当两个分支上对同一文件的相同部分进行了修改，Git 在合并这两个分支时可能无法自动解决冲突，导致冲突产生。
+2. **rebase 操作时的冲突**：在使用 `git rebase` 命令将提交移动到另一个基础提交时，如果存在与基础提交冲突的修改，会导致冲突。
+3. **多人协作时的冲突**：多人同时对同一文件进行修改并推送到远程仓库时，会导致冲突。这通常发生在团队协作中，需要解决不同开发者之间对同一文件的同时修改。
 
-##### 待
+##### 解决冲突思路
+当合并过程中发生冲突时，需要手动解决这些冲突。以下是解决合并冲突的基本步骤：
 
-1. `git status`：查看工作区和暂存区的状态。
-1. `git branch`：查看本地分支列表。
-4. `git revert <commit_SHA>`：撤销指定提交的更改。
-git pull
+1. **查看冲突文件**：首先运行 `git status` 命令来查看哪些文件存在冲突。Git 会列出所有有冲突的文件。
+
+2. **编辑冲突文件**：打开包含冲突的文件，在冲突部分周围会有特殊标记，如 `<<<<<<<`、`=======`、`>>>>>>>`。这些标记将冲突的不同部分分隔开来，你需要手动决定保留哪些内容、删除哪些内容或者作其他修改以解决冲突。
+
+3. **解决冲突**：根据冲突情况，编辑文件并移除特殊标记，保留需要的部分，删除不需要的部分，确保最终文件的内容是你希望的结果。
+
+4. **标记为已解决状态**：解决完所有冲突后，使用 `git add <conflicted_file>` 命令将文件标记为已解决状态。
+
+5. **完成合并**：继续执行 `git merge --continue` 或 `git commit` 命令完成合并操作。
+
+6. **提交变更**：如果执行 `git merge --continue`，接着可以直接提交合并的变更；如果手动解决冲突后使用 `git commit`，需要添加提交信息并完成提交。
+
+
+##### 例子
+假设有两个分支：`master` 和 `feature`，并且正在从 `feature` 分支合并到 `master` 分支时发生了冲突。以下是一个简单的示例来演示如何解决合并冲突：
+
+1. 首先，从 `feature` 分支切换到 `master` 分支：
+   ```
+   git checkout master
+   ```
+
+2. 然后进行合并操作，假设在这个过程中发生了冲突：
+   ```
+   git merge feature
+   ```
+
+3. 运行 `git status` 查看存在冲突的文件，假设有一个文件 `example.txt` 发生了冲突。
+
+4. 打开 `example.txt` 文件，可能看起来类似以下内容：
+   ```shell
+   some content
+   <<<<<<< HEAD
+   content on master branch
+   =======
+   content on feature branch
+   >>>>>>> feature
+   ```
+
+5. 根据需要编辑 `example.txt` 文件，解决冲突。比如保留 `master` 分支的内容或 `feature` 分支的内容，或者结合两者。
+
+6. 保存并关闭文件后，使用以下命令将文件标记为已解决状态：
+   ```
+   git add example.txt
+   ```
+
+7. 然后继续合并操作：
+   ```
+   git merge --continue
+   ```
+
+8. 如果一切顺利，Git 将会完成合并操作。如果还有其他待提交的变更，可以运行 `git commit` 提交合并的结果。
+
+
+
+#### git branch
+
+<font color=#99CCFF style=" font-weight:bold;">本地仓库发生改变</font>
+创建/删除/查询本地仓库和远程仓库的分支
+详见GIT笔记
+
+
+#### git revert
+<font color=#99CCFF style=" font-weight:bold;">改变本地仓库</font>
+>撤销提交并留下一个撤销提交的提交信息
+
+`git revert` 命令用于撤销指定提交所引入的更改，并创建一个新的提交来应用撤销操作。这个命令不会改变 Git 历史记录，而是通过创建一个新的提交来撤销之前的提交。
+
+下面是 `git revert` 命令的基本用法和步骤：
+
+1. **找到要撤销的提交**：首先使用 `git log` 命令查看提交历史，确定要撤销的提交的哈希值（commit hash）。
+
+2. **执行撤销操作**：运行以下命令撤销指定提交（用 `<commit>` 代表要撤销的提交哈希值）：
+   ```
+   git revert <commit>
+   ```
+
+3. **编辑提交信息**：Git 会自动打开一个文本编辑器以编辑撤销提交的信息。你可以修改默认的提交信息，保存并关闭编辑器。
+
+4. **确认提交**：保存编辑后的提交信息后，Git 将会生成一个新的提交，该提交包含了对指定提交的撤销操作。
+
+5. **解决冲突**：如果在撤销操作中存在冲突，需要手动解决冲突并标记为已解决状态后，再进行提交。
+
+6. **完成操作**：撤销操作完成后，相关文件将恢复到撤销提交之前的状态。
+
+值得注意的是，`git revert` 不会擦除历史记录，而是通过创建新的提交来撤销指定提交的更改，因此适用于已经推送到远程仓库的提交。如果只是想在本地工作区撤销最后一次提交，可以考虑使用 `git reset` 命令。
+
