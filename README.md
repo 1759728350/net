@@ -3,19 +3,13 @@
 * 有一些命令的案例
 * 供自己preview时进行参考
 
-## javascript
-1. [git基础](obsidian://open?vault=net&file=git%2FGit)
-2. [javascript高级](https://www.bilibili.com/video/av27134850)
-3. [ES6](https://www.bilibili.com/video/av27143015)
-4. [jQuery](https://www.bilibili.com/video/av27140087)
-5. [AJAX](https://www.bilibili.com/video/av25609975?from=search&seid=2609115760970518523)
-6. [JS模块化](https://www.bilibili.com/video/av27141329)
-   1. commonjs
-   2. AMD
-   3. ES6模块化
-7. [react](https://www.bilibili.com/video/av27145318)
-8. [vue](https://www.bilibili.com/video/av24099073)
-9. [dataStructure(js的数据结构与算法)](https://www.bilibili.com/video/av50356600)
+## git
+1. [git基础](https://github.com/1759728350/net/blob/master/git/Git.md)
+2. [git命令进阶](https://github.com/1759728350/net/blob/master/git/git%E5%91%BD%E4%BB%A4.md)
+3. [git面试题](https://github.com/1759728350/net/blob/master/git/Git%E9%9D%A2%E8%AF%95%E9%A2%98.md)
+## docker
+1. [docker基础](https://github.com/1759728350/net/blob/master/docker/docker.md)
+3. [docker面试题](https://github.com/1759728350/net/blob/master/docker/docker面试题.md)
 ## html与css
 1. CSS
    1. CSS
