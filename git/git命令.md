@@ -1,4 +1,4 @@
-
+    
 
 ##### 区域概念
 1. 工作区（Working Directory）：工作区是你实际编辑文件的地方，可以看作是你项目的目录。
@@ -76,7 +76,7 @@ git push origin newbranch:main2
 
 **2. 恢复文件,切换文件状态到某一提交或标签：**
 
-```
+```bash
 git checkout <commit_SHA> -- <file_path>
 ```
 
@@ -389,7 +389,7 @@ git reset --hard <commit>
 
 
 #### git revert
-<font color=#99CCFF style=" font-weight:bold;">改变本地仓库</font>
+<font color=#99CCFF style=" font-weight:bold;">改变本地仓库,会将工作区的文件也给删了</font>
 >撤销提交并留下一个撤销提交的提交信息
 
 `git revert` 命令用于撤销指定提交所引入的更改，并创建一个新的提交来应用撤销操作。这个命令不会改变 Git 历史记录，而是通过创建一个新的提交来撤销之前的提交。
