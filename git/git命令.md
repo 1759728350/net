@@ -422,7 +422,26 @@ git checkout abc123
 
 <font color=#99CCFF style=" font-weight:bold;">本地仓库发生改变</font>
 创建/删除/查询本地仓库和远程仓库的分支
-详见GIT笔记
+
+查看分支
+```shell
+# 列出所有本地分支
+git branch -v
+# 列出所有远程分支
+git branch -r
+```
+
+创建分支
+```shell
+# 新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+# 切换分支
+git checkout [branch]
+
+# 新建一个分支，并切换到该分支
+git checkout -b [branch]
+```
+
 
 
 #### git revert

@@ -495,8 +495,8 @@ _文件从没有被add过_
 通过执行`git fetch`，你可以获取远程仓库的最新变动，然后可以基于这些变动进行进一步操作，比如查看远程分支的变化，合并远程分支到本地分支等。
 
 ### pull拉取
-#### 拉取失败解决_强制覆盖
-##### 强制拉取远程仓库并覆盖本地仓库代码
+
+##### 强制拉取远程仓库并强制覆盖本地仓库代码
 
 ```shell
 git fetch --all 
@@ -569,7 +569,7 @@ git reset --soft commitId
 ```
 
 
-##### git revert
+##### git revert撤回提交
 git revert commitId
 再次创建一个新版本commit号,
 这个commit会和你之前跳转的commit比较合并

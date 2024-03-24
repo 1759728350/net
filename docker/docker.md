@@ -45,9 +45,10 @@ Dockerfile定义了进程需要的一切东西。Dockerfle涉及的内容包括�
 4. **EXPOSE**：声明容器运行时监听的端口，但并不真正发布该端口。
 5. **VOLUME**：创建一个挂载点，用于持久化存储数据
 6. ENV: 设置环境变量
-7. CMD: 运行容器时执行的命令
+7. CMD: 启动容器时执行的命令
 8. ENTRYPOINT: 类似于CMD指令，但是ENTRYPOINT<font color=#99CCFF style=" font-weight:bold;">不会被docker run后面的命令覆盖</font>,且会使得CMD变为参数
 9. WORKDIR: docker run命令执行后的落脚点目录
+10. LABEL： LABEL 指令用于组织项目映像，模块，许可等。在自动化布署方面 LABEL 也有很大用途。在 LABEL 中指定一组键值对，可用于程序化配置或布署 Docker
 
 ##### CMD
 ```shell
