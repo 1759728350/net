@@ -77,7 +77,7 @@ git push origin newbranch:main2
 **2. 恢复文件,切换文件状态到某一提交或标签：**
 
 ```bash
-git checkout <commit_SHA> -- <file_path>
+git checkout <commit_SHA> -- <file_path>    ##切换之前先加入到暂存区或stash
 ```
 
 其中，`<commit_SHA>`是目标提交的SHA值（可以通过`git log`查看），`<file_path>`是要恢复的文件路径。这个命令会将指定文件恢复到指定提交的状态。
@@ -92,9 +92,12 @@ git checkout -- <file>
 
 切换到某一标签
 ```shell
-git checkout <tag_name>
+git checkout <tag_name>   ##切换之前先加入到暂存区或stash
 ```
-
+切换到某一分支
+```bash
+git checkout <commit>   ##切换之前先加入到暂存区或stash
+```
 
 **3. 创建临时分支进行实验性修改：**
 
@@ -411,5 +414,7 @@ git reset --hard <commit>
 
 6. **完成操作**：撤销操作完成后，相关文件将恢复到撤销提交之前的状态。
 
-值得注意的是，`git revert` 不会擦除历史记录，而是通过创建新的提交来撤销指定提交的更改，因此适用于已经推送到远程仓库的提交。如果只是想在本地工作区撤销最后一次提交，可以考虑使用 `git reset` 命令。
+
+**git reset和revert的区别**
+`git revert` 不会擦除历史记录，而是通过创建新的提交来撤销指定提交的更改，因此适用于已经推送到远程仓库的提交。如果只是想在本地工作区撤销最后一次提交，可以考虑使用 `git reset` 命令。
 
