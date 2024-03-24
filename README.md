@@ -6,10 +6,21 @@
 ## git
 1. [git基础](https://github.com/1759728350/net/blob/master/git/Git.md)
 2. [git命令进阶](https://github.com/1759728350/net/blob/master/git/git%E5%91%BD%E4%BB%A4.md)
-3. [git面试题](https://github.com/1759728350/net/blob/master/git/Git%E9%9D%A2%E8%AF%95%E9%A2%98.md)
+3. [git问题解决](https://github.com/1759728350/net/blob/master/git/Git问题解决.md)
+4. [git面试题](https://github.com/1759728350/net/blob/master/git/Git%E9%9D%A2%E8%AF%95%E9%A2%98.md)
 ## docker
 1. [docker基础](https://github.com/1759728350/net/blob/master/docker/docker.md)
 3. [docker面试题](https://github.com/1759728350/net/blob/master/docker/docker面试题.md)
+
+## shell
+1. [shell基础](https://github.com/1759728350/net/blob/master/shell/shell脚本语法.md)
+2. [shell命令行三剑客](https://github.com/1759728350/net/blob/master/shell/命令行三剑客及相关命令.md)
+3. [docker面试题](https://github.com/1759728350/net/blob/master/shell/shell面试题.md)
+
+
+
+
+
 ## html与css
 1. CSS
    1. CSS
