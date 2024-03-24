@@ -62,10 +62,10 @@ git push origin newbranch:main2
 **记得在使用`git push`命令之前先确保你的本地分支和远程分支之间没有冲突，并且已经与远程仓库同步。**
 
 #### git checkout
-<font color=#99CCFF style=" font-weight:bold;">工作区和暂存区发生变化</font>
+<font color=#99CCFF style=" font-weight:bold;">工作区切换,工作区更新会丢失</font>
 
 >主要作用就是切换到不同提交/标签/分支
->切换分支,工作区和暂存区变化
+>切换分支,工作区改变,暂存区多分支共享,但是stash栈不共享
 >切换提交,工作区变化
 >切换标签,本质和切换提交一样,标签就是对某次重要提交打标签
 
@@ -77,7 +77,7 @@ git push origin newbranch:main2
 **2. 恢复文件,切换文件状态到某一提交或标签：**
 
 ```bash
-git checkout <commit_SHA> -- <file_path>    ##切换之前先加入到暂存区或stash
+git checkout <commit_SHA> -- <file_path>    ##切换之前先stash保存更改
 ```
 
 其中，`<commit_SHA>`是目标提交的SHA值（可以通过`git log`查看），`<file_path>`是要恢复的文件路径。这个命令会将指定文件恢复到指定提交的状态。
@@ -92,19 +92,25 @@ git checkout -- <file>
 
 切换到某一标签
 ```shell
-git checkout <tag_name>   ##切换之前先加入到暂存区或stash
+git checkout <tag_name>   ##切换之前先stash保存更改
 ```
 切换到某一分支
 ```bash
-git checkout <commit>   ##切换之前先加入到暂存区或stash
+git checkout <commit>   ##切换之前先stash保存更改
 ```
 
 **3. 创建临时分支进行实验性修改：**
 
-- `git checkout -b <experimental_branch>`: 在当前分支的基础上创建一个新分支，并立即切换到新分支进行实验性的修改，而不影响当前主要分支。
+```shell
+git checkout -b <experimental_branch>
+```
+ 在当前分支的基础上创建一个新分支，并立即切换到新分支进行实验性的修改，而不影响当前主要分支。
 
-
-
+##### checkout,reset,revert区别
+使用场景
+`git checkout`命令主要用于切换分支、恢复文件、查看历史版本等操作
+`git reset`命令主要用于撤销提交、重置分支位置(调节HEAD指向)、撤销暂存区的更改等操作。
+`git revert`命令用于撤销先前的提交，创建一个新的提交来还原之前的更改。
 #### git tag
 <font color=#99CCFF style=" font-weight:bold;">本地仓库和远程仓库中的提交列表会变化</font>
 
@@ -155,8 +161,8 @@ git rebase <today_branch>
 3. Git会将将`today_branch`的提交挪动到新的基底上
 
 #### git reset
-`git reset`是Git中用于重置和回退当前分支的命令，
-它有三种常用模式：`--soft`、`--mixed`和`--hard`，每种模式的作用略有不同。下面是对这三种模式的详细介绍：
+>`git reset`是Git中用于重置和回退当前分支到某一提交的命令，除了第一个改变暂存区的命令,另外三个会将之前的提交信息彻底删除,所以慎用
+它有四种常用模式：`file` `、--soft`、`--mixed`和`--hard`，每种模式的作用略有不同。
 
 <font color=#99CCFF style=" font-weight:bold;">仅改变了暂存区</font>
 ```shell
@@ -164,7 +170,7 @@ git reset     ##清除所有暂存区文件
 
 git reset HEAD <file>
 ```
-撤销对暂存区（Index）中指定文件的更改，将该文件从暂存区中撤出,让这个文件回到未暂存状态。
+将暂存区中指定文件的更改撤回到工作目录中，但保留工作目录中的更改。
 
 使用场景: 将之前add的文件撤回来重新add
 
@@ -201,17 +207,45 @@ git reset --hard <commit>
 总的来说，`git reset`命令可以让你回退到指定的提交，同时根据不同的模式选择是否保留暂存区和工作目录中的更改。使用该命令前请确保你理解各种模式的区别，并注意潜在的数据丢失风险。
 
 
+##### HEAD指针
+HEAD是一个指向当前所在分支或提交的指针，它可以指向一个分支（比如`master`），也可以指向一个具体的提交（commit）。HEAD的指向会在以下情况下发生变化：
+
+1. **切换分支**：当您使用`git checkout <branch-name>`命令切换到另一个分支时，HEAD会指向被切换到的分支，指向的是该分支最新的提交。
+    
+2. **检出特定提交**：如果您使用`git checkout <commit-SHA>`命令来检出一个特定的提交，而不是分支名称，那么HEAD将指向这个具体的提交，处于分离头指针状态。
+    
+3. **提交新的更改**：当您使用`git commit`命令提交了新的更改后，HEAD将指向这个新的提交。
+    
+4. **使用`git reset`命令**：通过`git reset`命令重置HEAD指向的位置，可以让HEAD指向指定的提交或分支，并根据参数不同，工作目录和暂存区会做相应的改变。
+    
+5. **合并分支**：在执行分支合并操作（如`git merge`）后，HEAD会更新为合并后的分支。
+    
+6. **撤销提交**：通过`git revert`命令撤销提交并创建新的提交时，HEAD会指向新的提交。
+
+##### 孤立提交
+`git checkout <commit-SHA>`命令切换到某个具体的提交时，会导致 HEAD 进入分离头指针状态。这意味着 HEAD 不再指向任何分支，而是直接指向您所切换到的特定提交。这种情况下，如果您对代码进行修改并提交，新的提交将会形成一个“孤立”的提交，而不会在任何分支上进行。这可能会导致一些意想不到的后果，因此在分离头指针状态下操作需要格外小心。
+
+举例来说，假设您当前在 `master` 分支上，然后运行以下命令切换到某个特定提交：
+
+```bash
+git checkout abc123
+```
+
+现在 HEAD 处于分离头指针状态，指向提交 `abc123`。如果您在这种状态下做一些修改并提交，比如修改了文件 `index.html` 并执行 `git commit -m "Updated index.html"`，那么这个提交将会形成一个新的“孤立”提交，不属于任何分支，Git中可能会显示类似 `(HEAD detached at abc123)` 的提示信息。
+
+>这个“孤立”提交虽然可以保存您的更改，但在以后很难维护和管理，因为它不会自动被任何分支引用，除非您手动创建一个分支指向它。因此，在分离头指针状态下，建议在完成工作后立即创建新分支或者切换回已有的分支，以避免出现混乱或意外的问题。
 
 
 #### git stash
 <font color=#99CCFF style=" font-weight:bold;">只改变工作区</font>
+
 >`git stash`命令用于将当前工作目录中的修改（包括已跟踪和未跟踪的文件）暂存起来，使得工作目录变为干净状态，
 以便于切换到其他分支或进行其他操作。
 当你在工作时需要突然转移到其他任务，但又不想暂存和提交当前的修改时，可以使用`git stash`命令来保存工作目录。
 
 **为啥不用git add .存到暂存区呢?**
-因为你切换分支后工作区目录和暂存区都会跟着变化,所以修改的内容就丢了
-当你另外一个分支的任务完成,切回来之前的分支,之前干一半的修改全没了,所以用stash来存修改
+因为多个分支共用一个暂存区,所以会误把之前分支存在暂存区的修改提交到另一个分支去
+所以在切换分支前需要将工作区更新的内容提交或者stash
 
 意外状况: pop时发现自己在原文件上改了一部分,所以pop出来会被覆盖,那怎么办呢?可以先add,然后pop再提交
 如果后来改的那部分不想要可以把暂存区里的给清除掉git reset
@@ -238,7 +272,7 @@ git reset --hard <commit>
      ```
 
    - 恢复指定的stash：
-     ```
+     ```bash
      git stash apply stash@{n}
      ```
 
@@ -347,7 +381,7 @@ git reset --hard <commit>
 假设有两个分支：`master` 和 `feature`，并且正在从 `feature` 分支合并到 `master` 分支时发生了冲突。以下是一个简单的示例来演示如何解决合并冲突：
 
 1. 首先，从 `feature` 分支切换到 `master` 分支：
-   ```
+   ```bash
    git checkout master
    ```
 
@@ -376,7 +410,7 @@ git reset --hard <commit>
    ```
 
 7. 然后继续合并操作：
-   ```
+   ```bash
    git merge --continue
    ```
 
@@ -392,18 +426,19 @@ git reset --hard <commit>
 
 
 #### git revert
-<font color=#99CCFF style=" font-weight:bold;">改变本地仓库,会将工作区的文件也给删了</font>
+<font color=#99CCFF style=" font-weight:bold;">工作区更新同步回滚(丢失更新),本地仓库提交目录多一个提交</font>
 >撤销提交并留下一个撤销提交的提交信息
+>工作区目录也会回滚到revert之前的状态,所以没add会导致修改更新丢失
 
-`git revert` 命令用于撤销指定提交所引入的更改，并创建一个新的提交来应用撤销操作。这个命令不会改变 Git 历史记录，而是通过创建一个新的提交来撤销之前的提交。
+`git revert` 命令用于撤销指定提交所引入的更改，并创建一个新的提交来应用撤销操作。这个命令不会改变 Git 历史记录，而是通过创建一个新的提交来撤销之前的提交。**工作区的更新会丢失**
 
 下面是 `git revert` 命令的基本用法和步骤：
 
 1. **找到要撤销的提交**：首先使用 `git log` 命令查看提交历史，确定要撤销的提交的哈希值（commit hash）。
 
 2. **执行撤销操作**：运行以下命令撤销指定提交（用 `<commit>` 代表要撤销的提交哈希值）：
-   ```
-   git revert <commit>
+   ```bash
+   git revert <commit>    ##切换之前先加入到暂存区或stash
    ```
 
 3. **编辑提交信息**：Git 会自动打开一个文本编辑器以编辑撤销提交的信息。你可以修改默认的提交信息，保存并关闭编辑器。
