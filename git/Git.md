@@ -184,12 +184,12 @@ $ git branch -dr [remote/branch]
 ##### 创建一个分支
 
 ```shell
-$ git branch -v
+git branch -v
 * master b7779e5 the third try
 
-$ git branch fix_shit
+git branch fix_shit
 
-$ git checkout fix_shit           ##切换分支
+git checkout fix_shit           ##切换分支
 Switched to branch 'fix_shit'
 ```
 
@@ -321,7 +321,7 @@ $ git commit -m "delete remote integration-engine-stream.iml"
 4.push
 
 ```shell
-$ git push [remote] [branch]
+git push [remote] [branch]
 ```
 
 
@@ -331,7 +331,6 @@ $ git push [remote] [branch]
 git fetch --all 
 git reset --hard master 
 git pull #可省略
-
 ```
 
 
