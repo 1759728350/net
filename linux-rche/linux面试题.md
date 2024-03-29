@@ -99,3 +99,11 @@ ifconfig -a
 df -h
 ```
 
+##### 简述lvm，如何给使用lvm的/分区扩容？
+* 添加磁盘
+* 使用fdisk对磁盘进行分区
+* 修改分区类型为lvm
+* 使用pvcreate来创建物理卷
+* 使用vgextend将物理卷加入到根目录的卷组中
+* lvextend来为扩容虚拟卷
+* 为文件系统扩空间
