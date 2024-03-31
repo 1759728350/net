@@ -3,6 +3,13 @@
 * 有一些命令的案例
 * 供自己preview时进行参考
 
+
+## linux
+1. [linux文件管理](https://github.com/1759728350/net/blob/master/linux/linux文件管理.md)
+2. [linux网络管理](https://github.com/1759728350/net/blob/master/linux/linux网络管理.md)
+3. [linux磁盘管理](https://github.com/1759728350/net/blob/master/linux/linux磁盘管理.md)
+4. [linux性能分析](https://github.com/1759728350/net/blob/master/linux/linux性能分析.md)
+5. [linux面试题](https://github.com/1759728350/net/blob/master/linux/linux面试题.md)
 ## git
 1. [git基础](https://github.com/1759728350/net/blob/master/git/Git.md)
 2. [git命令进阶](https://github.com/1759728350/net/blob/master/git/git%E5%91%BD%E4%BB%A4.md)
