@@ -22,7 +22,7 @@
 ## shell
 1. [shell基础](https://github.com/1759728350/net/blob/master/shell/shell脚本语法.md)
 2. [shell命令行三剑客](https://github.com/1759728350/net/blob/master/shell/命令行三剑客及相关命令.md)
-3. [docker面试题](https://github.com/1759728350/net/blob/master/shell/shell面试题.md)
+3. [shell面试题](https://github.com/1759728350/net/blob/master/shell/shell面试题.md)
 
 
 

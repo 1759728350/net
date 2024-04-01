@@ -1,9 +1,9 @@
 
 
 ## 归纳
-* docker,
+* docker,√
 * k8s,
-* linux磁盘文件系统知识,
+* linux磁盘文件系统知识,√
 * linux网络及tcp底层
 * 监控
 	* 日志中间件elk
