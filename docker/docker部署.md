@@ -60,3 +60,36 @@ redis-server /etc/redis/redis.conf  ##镜像启动命令,redis启动时是在自
 * 设置redis的配置文件中的内容以及设置redis的访问密码
 * 打开安全组对应端口,开放服务
 * 其他服务想使用redis就只要在设置redis所在ip和端口就行了
+
+
+
+### docker安装centos7
+```shell
+docker pull centos:centos7
+
+docker images
+```
+运行容器
+启动centos容器，并把docker上centos的22端口映射到本机60001端口(端口号可以自己指定)
+```shell
+docker run -itd --name centos-test -p 60001:22  --privileged centos:centos7 /usr/sbin/init 
+
+进入到Centos容器
+docker exec -it centos-test /bin/bash
+
+安装ssh服务和网络必须软件
+ yum install net-tools.x86_64 -y
+ yum install -y openssh-server
+
+
+A、安装完后重启SSH服务:
+systemctl restart sshd
+
+B.安装passwd软件（用于设置centos用户密码，便于用Xshell连)
+yum install passwd -y 
+
+设置用户密码
+passwd root
+
+```
+

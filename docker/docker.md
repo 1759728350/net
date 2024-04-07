@@ -341,6 +341,193 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 甚至连在容器内ifconfig查看网络配置都是和主机一模一样的
 
 
+
+#### docker主机的路由表
+
+```shell
+[root@VM-4-10-centos ~]# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.0.4.1        0.0.0.0         UG    0      0        0 eth0
+10.0.4.0        0.0.0.0         255.255.252.0   U     0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+```
+
+- Destination：目标网络地址
+- Gateway：<font color=#99CCFF style=" font-weight:bold;">路由数据包到达目标网络时要经过的下一网关</font>
+- Genmask：子网掩码，用于确定网络中主机部分和网络部分的位数
+- Flags：路由标志，如 UG 表示该路由是到一个默认网关（Default Gateway）的路由
+- Metric：该路由的优先级，数值越小表示优先级越高
+- Ref：路由的引用计数
+- Use：显示该路由被使用的次数
+- Iface：数据包在发送到目标网络时应该使用的网络接口
+
+路由表中的每一条路由规则包含了目标地址、网关和网络接口这三个重要元素。当系统接收到一个数据包时，会根据目标地址查找匹配的路由规则，并确定数据包应该经过哪个网关以及使用哪个网络接口发送出去。这样确保了数据包能够正确到达目标网络。
+
+
+##### 什么是网关?
+
+Gateway（网关）：是数据包在到达目标网络之前经过的中间设备。当数据包要前往一个不在本地网络内的目标地址时，需要通过网关来实现路由转发。
+
+<font color=#FFCCCC style=" font-weight:bold;">我们在建立主机网络时通常需要配置三个参数,ip地址,子网掩码,网关, 其中这个网关就是这个主机的默认路由,这个默认路由的地址是通往路由器的</font>
+
+
+##### 什么是网卡(网络适配器)?
+
+I数据包在传输过程中要经过的网络接口。每个网络接口都对应着系统中的一个物理或虚拟<font color=#99CCFF style=" font-weight:bold;">网卡</font>，。<font color=#FFCCCC style=" font-weight:bold;">网卡就是以面向对象的思想将网络接口抽象为一个对象</font>
+
+##### 虚拟网卡 
+(什么是vlan虚拟网络适配器)
+
+docker0就是虚拟网络接口, 可以理解为别名网卡
+一个主机上有一个网卡该网卡上有一个物理网络适配器,比如eth0
+但还会有其他多个虚拟网络适配器, 比如一下情况:
+
+1. **虚拟网络适配器**：系统会创建虚拟网络适配器，用于特定功能或网络配置。例如，VPN 连接、虚拟化软件（如 VMware、VirtualBox）创建的虚拟网络适配器还有docker都会显示为额外的网络适配器。
+    
+2. **无线网卡和有线网卡**：如果您的计算机同时连接了无线网络和有线网络，那么您会看到至少两个网络适配器：一个是无线网络适配器，另一个是有线网络适配器。
+    
+3. **隧道适配器**：某些软件可能会创建虚拟的隧道适配器，用于特定类型的网络通信，这样也会显示为一个额外的网络适配器。
+
+**作用**
+
+1. **网络连接**：虚拟网卡可以使虚拟机或容器等虚拟化环境实现与物理网络的连接，从而实现网络通信和数据传输。
+
+2. **网络隔离**：通过虚拟网卡，可以在同一台主机上创建多个独立的网络环境，实现网络隔离，确保不同网络之间的安全性和独立性。
+
+3. **网络虚拟化**：虚拟网卡可以为虚拟机提供独立的网络标识和配置，实现网络虚拟化，让虚拟机在虚拟网络中具有自己的网络特性。
+
+
+
+##### 路由表分析
+当前主机的路由表
+
+```shell
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         主机设置的网关    0.0.0.0         UG    0      0        0 eth0
+10.0.4.0     不用走路由器,局域网内 255.255.252.0   U     0      0        0 eth0
+169.254.0.0     0.0.0.0         255.255.0.0     U     1002   0        0 eth0
+172.17.0.0      0.0.0.0         255.255.0.0     U     0      0        0 docker0
+```
+
+- default默认路由：所有不符合其他路由规则的目标IP地址将通过主机设置的网关进行转发。
+    
+- 10.0.4.0/22 子网：这个路由规则指示主机上的数据包不需要经过路由器，而是直接在局域网内传输。
+    
+- 169.254.0.0/16 子网：这个路由规则用于处理链接本地地址（Link-Local Address），用于主机与网络中直接相连的设备通信。Dhcp服务器坏了,分配不了ip, 就会用个子网的ip
+    
+- 172.17.0.0/16 子网：这个路由规则指示与Docker容器相关的数据包在docker0 接口上进行通信。
+
+>网关为0.0.0.0就是当前局域网内,不需要走网关路由器,
+网络适配器是eth0表示都是本主机内部的网络,
+网络适配器是docker0表示走网桥docker0到另一个不同网段网络,所以这里的网桥相当于一个交换机,隔离了网络
+
+##### 网络拓扑图
+根据这个路由表，下面是基于本机的网络拓扑图：
+
+```php
+                                    +-----------+
+                                    |           |
+                                    | 主机配置的  |        
+                                    | 网关路由器  |
+                                    +-----+-----+
+                                          |g0
+                                          |
+         +---------------------------------                   
+         |                                               
+   10.0.4.1 本机配置的
+   默认网关,在本网络中的ip地址                                        
+         |            +-----+------+--------+----------------------------------------              
+         |            |    本机              |                          
+         |            |10.0.4.10            |                      eth0
+         |            |-----|------|--------+                   172.17.0.2
+         |            | eth0|docker0        |       +-----------docker的redis容器
+		 +------------|网络适|网桥(路由器不网段)|------|                       
+					  | 配器 |172.17.0.0/16  |       +----------docker的nginx容器
+				|10.0.4.0/22|                |		                172.17.0.3
+                      +-----+----------------+                         eth0
+                        |                    +--------------------------------------                  
+                        |                                           
+                        |                            
+                   +----+----+                    
+                   |         |                   
+                 eth0       eth0                    
+               10.0.4.3    10.0.4.2
+```
+<font color=#FFCCCC style=" font-weight:bold;">docker中的桥接模式本质使用的是nat,而不是虚拟机中的桥接模式,</font>
+所以虚拟出来的容器ip是通过主机路由nat转发出去的,
+因此和主机是不同网段,
+虚拟机的桥接模式相当于和主机一个层级,直接连接在了主机的网关上
+
+##### ifconfig查看网络适配器和交换机
+
+```c
+[root@VM-4-10-centos ~]# ifconfig 
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:3bff:fe11:6720  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:3b:11:67:20  txqueuelen 0  (Ethernet)
+        RX packets 133702  bytes 133386772 (127.2 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 146889  bytes 20056160 (19.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.4.10  netmask 255.255.252.0  broadcast 10.0.7.255
+        inet6 fe80::5054:ff:fe03:1576  prefixlen 64  scopeid 0x20<link>
+        ether 52:54:00:03:15:76  txqueuelen 1000  (Ethernet)
+        RX packets 211136408  bytes 28603346104 (26.6 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 213430320  bytes 27808515844 (25.8 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 15  bytes 1920 (1.8 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 15  bytes 1920 (1.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::c0a9:6dff:fe76:1c82  prefixlen 64  scopeid 0x20<link>
+        ether c2:a9:6d:76:1c:82  txqueuelen 0  (Ethernet)
+        RX packets 93996  bytes 109511147 (104.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 104132  bytes 16299650 (15.5 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth9: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::8852:dcff:fe7b:628  prefixlen 64  scopeid 0x20<link>
+        ether 8a:52:dc:7b:06:28  txqueuelen 0  (Ethernet)
+        RX packets 34111  bytes 24558983 (23.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 41544  bytes 3544672 (3.3 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+
+##### 设置域名解析
+```bash
+vi /etc/hosts
+```
+修改配置文件
+```shell
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.2   os1       ##将另一个容器名字修改为os1
+## 172.17.0.2   6d182f884ee1
+```
+ping域名
+```bash
+ping os1
+```
 ### docker compose
 就是将原有的多个镜像的dockerfiel写到一个docker-compose.yml里,然后指定谁依赖谁,启动的先后顺序
 
