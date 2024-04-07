@@ -340,6 +340,25 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 和主机共享IP,共享端口,所以容易与主机端口冲突
 甚至连在容器内ifconfig查看网络配置都是和主机一模一样的
 
+两种区别
+![](img/Pasted%20image%2020240407203321.png)
+
+##### 自定义网络
+创建一个网络后,在这个网络的容器可以通信,
+其他网络的容器想要与这个自定义网络里的所有容器通信,
+可以直接连接这个自定义网络名,
+所以很方便,
+不用像其他网络那样管理容器网络很费事,
+[详细](https://blog.csdn.net/CSDN1csdn1/article/details/123961079?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171246903816800211575644%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171246903816800211575644&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-123961079-null-null.142^v100^pc_search_result_base3&utm_term=docker%E7%BD%91%E7%BB%9C&spm=1018.2226.3001.4187)
+
+##### none模式
+
+加上后面的参数就行了 --net=none
+
+none模式没有IP地址，无法连接外网，等于就是断网的状态，作用就是用于测试
+
+##### container模式
+这个模式指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信
 
 
 #### docker主机的路由表
