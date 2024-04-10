@@ -99,16 +99,16 @@ systemctl enable httpd
 groupadd 组名
 ```
 创建一个在某用户组下的用户(某用户次要组从属于该组)
-```
+```shell
 ##-G指定组名
 useradd -G 组名 用户名
 ```
 创建一个用户时指定其shell,非交互式shell是/bin/false
-```
+```shell
 useradd -s /bin/false 用户名
 ```
 设置用户密码
-```
+```shell
 echo 密码 | passwd --stdin 用户名
 echo redhat | passwd --stdin nata
 ```

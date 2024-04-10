@@ -124,6 +124,74 @@
 所以无法向外通信
 ![](img/Pasted%20image%2020240407202156.png)
 
+
+### 配置主机IP
+在Linux系统中，你可以通过编辑配置文件或使用命令行工具来配置静态IP地址或使用DHCP动态获取IP地址，以确保主机能够正确与网络通信。以下是详细的说明：
+
+#### 通过编辑配置文件进行IP地址配置：
+
+**静态IP地址配置**：
+
+- 打开 `/etc/network/interfaces` 文件进行编辑：使用文本编辑器（如vi、nano等）打开该文件。
+
+- 找到对应网络接口的配置信息，一般格式如下：
+  ```
+  auto eth0
+  iface eth0 inet static
+      address 192.168.1.100
+      netmask 255.255.255.0
+      gateway 192.168.1.1
+  ```
+
+- 修改上述字段为你想要设置的IP地址、子网掩码和网关，保存文件并退出。
+
+- 重启网络服务或者重启系统使修改生效：
+  ```bash
+  sudo systemctl restart networking
+  ```
+
+**DHCP动态获取IP地址**：
+
+- 打开 `/etc/network/interfaces` 文件进行编辑。
+
+- 将对应网络接口的配置信息改为类似如下DHCP设置：
+  ```
+  auto eth0
+  iface eth0 inet dhcp
+  ```
+
+- 保存文件并退出，然后重启网络服务或者重启系统：
+  ```bash
+  sudo systemctl restart networking
+  ```
+
+#### 使用命令行工具进行IP地址配置
+
+ **静态IP地址配置**
+
+- 使用 `ifconfig` 或 `ip addr` 命令查看当前网络接口，确定要配置的接口名（如eth0）。
+
+- 使用以下命令设置静态IP地址：
+  ```bash
+  sudo ifconfig eth0 192.168.1.100 netmask 255.255.255.0
+  sudo route add default gw 192.168.1.1
+  ```
+
+- 确保配置成功，可以使用 `ifconfig` 或 `ip addr` 查看网络接口信息。
+
+2. **DHCP动态获取IP地址**：
+
+- 使用以下命令启用DHCP：
+  ```bash
+  sudo dhclient eth0
+  ```
+
+- 等待一段时间，系统将会获取到动态分配的IP地址。
+
+
+
+
+
 ### 网络连通分析步骤
 确定主机连接到了正确的目的网络通常涉及以下几个步骤：
 

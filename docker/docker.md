@@ -302,12 +302,12 @@ ENTRYPOINT ["java","-jar","/app.jar"]
    ```
 
 3. 然后，给你的镜像打上正确的标签。标签的格式为 `<Docker Hub用户名>/<镜像名称>:<版本号>`。例如，假设你的Docker Hub用户名是 "exampleuser"，你的镜像名称是 "myimage"，版本号是 "v1"，那么标签就是 "exampleuser/myimage:v1"。使用以下命令来给镜像打标签：
-   ```
+   ```c
    docker tag <本地镜像名称> <Docker Hub用户名>/<镜像名称>:<版本号>
    ```
 
 4. 最后，使用 `docker push` 命令将镜像推送到Docker Hub上。使用以下命令来推送镜像：
-   ```
+   ```c
    docker push <Docker Hub用户名>/<镜像名称>:<版本号>
    ```
 

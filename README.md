@@ -24,7 +24,10 @@
 2. [shell命令行三剑客](https://github.com/1759728350/net/blob/master/shell/命令行三剑客及相关命令.md)
 3. [shell面试题](https://github.com/1759728350/net/blob/master/shell/shell面试题.md)
 
-
+## mysql
+1. [mysql面试题](https://github.com/1759728350/net/blob/master/mysql/mysql面试题md)
+2. [mysql高级](https://github.com/1759728350/net/blob/master/mysql/mysql高级.md)
+3. [mysql日志及排错](https://github.com/1759728350/net/blob/master/mysql/mysql日志及排错.md)
 
 
 
