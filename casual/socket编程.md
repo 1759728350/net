@@ -1,11 +1,7 @@
 #### windows共享文件夹
 同一局域网内能使用
 
-\\PC-20230204GLKY\Users\Administrator\Desktop\第二套答辩PPT
-![](img/Pasted%20image%2020230605121020.png)
 
-#### ipconfig查询ip
-![](img/Pasted%20image%2020230605121041.png)
 
 
 #### socket编程两台主机字符通信
@@ -181,7 +177,3 @@ python script.py -t client -i 192.168.1.10 -p 9999
 ```
 
 
-#### 虚拟机三种网络设置
-nat:能访问外网,但外网无法直接访问内部主机
-仅主机模式:不能访问外网的nat模式,只能和主机进行通信
-bridge    :和主机同一个网段,独立ip

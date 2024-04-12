@@ -441,7 +441,10 @@ git checkout [branch]
 # 新建一个分支，并切换到该分支
 git checkout -b [branch]
 ```
-
+删除分支
+```shell
+git branch -d name
+```
 
 
 #### git revert
