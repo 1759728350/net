@@ -2,6 +2,9 @@
 [详见](https://blog.csdn.net/adminpd/article/details/122910606?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171270929516800211512641%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171270929516800211512641&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-122910606-null-null.142^v100^pc_search_result_base3&utm_term=mysql%E9%9D%A2%E8%AF%95%E9%A2%98&spm=1018.2226.3001.4187)
 面试题:力求精简,一句话概括
 结合实际案例,进行深度剖析
+
+
+[经典一百道面试题](https://blog.csdn.net/cyl101816/article/details/117520437?ops_request_misc=&request_id=&biz_id=102&utm_term=mysql%E9%9D%A2%E8%AF%95%E9%A2%98&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-117520437.nonecase&spm=1018.2226.3001.4187)
 ### 表字段
 ##### mysql字段的数值类型有哪些?
 有包括 TINYINT、SMALLINT、INT、BIGINT，分别表示 1 字节、2 字节、4 字节、8 字节的整数类型。
