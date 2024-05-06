@@ -235,7 +235,10 @@ docker exec -it 容器名orid  /bin/bash
 ```shell
 docker ps -a
 ```
-
+##### 删除容器
+```shell
+docker rm 容器
+```
 #### exec命令详解
 `docker exec`命令用于在运行中的Docker容器内部执行命令。通过这个命令，你可以在容器内部执行特定的命令，而无需进入容器的交互式Shell环境。
 

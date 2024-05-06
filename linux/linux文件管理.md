@@ -213,7 +213,11 @@ lrwxrwxrwx  1 root root           9 3月  23 2023 python2 -> python2.7
 ##一路递归最终找到python这个软连接指向的python2.7  -rwxr说明这是个文件,l开头表示软连接
 ##whereis python2.7就能获取该文件的相关所有源代码,可执行文件,手册
 ```
-
+# 路径跳转
+##### 跳转到上一次路径
+```shell
+cd -
+```
 # 文件操作
 
 #### 更改创建文件touch
